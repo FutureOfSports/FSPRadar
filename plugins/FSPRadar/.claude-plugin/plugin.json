@@ -1,6 +1,6 @@
 {
   "name": "FSPRadar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Future Of Sports product radar. Auto-files bugs / feature feedback / new feature requests into the team's Linear workspace, extracting structure from screenshots and rough text and asking warmly for missing fields. Bundles the Linear MCP server.",
   "author": {
     "name": "Future Of Sports",
