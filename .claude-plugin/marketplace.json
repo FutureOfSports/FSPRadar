@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "FSPRadar",
+  "description": "Future Of Sports — internal Claude Code plugins. Radar for product issues: catch bugs, feedback, and feature requests the moment a teammate notices them.",
+  "owner": {
+    "name": "Future Of Sports",
+    "email": "praful@futureofsports.io"
+  },
+  "plugins": [
+    {
+      "name": "FSPRadar",
+      "description": "Auto-files bugs / feature feedback / new feature requests into the Future Of Sports Linear workspace. Triggers on screenshots of broken UI or any frustrated mention of the product. Bundles the Linear MCP so install is one step.",
+      "author": {
+        "name": "Future Of Sports",
+        "email": "praful@futureofsports.io"
+      },
+      "source": "./plugins/FSPRadar",
+      "category": "productivity"
+    }
+  ]
+}
