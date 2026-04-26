@@ -16,7 +16,7 @@ Your job: turn whatever the teammate just dumped at you (screenshot, vent, half-
 
 ## Required schema
 
-Before calling `mcp__linear__save_issue`, you must have all of these:
+Before calling the Linear MCP's `save_issue` tool (the exact tool name will look like `mcp__linear__save_issue` or `mcp__plugin_FSPRadar_linear__save_issue` depending on how Linear was registered — pick whichever is available), you must have all of these:
 
 | Field | Linear arg | Source |
 |---|---|---|
@@ -91,7 +91,7 @@ When you call `save_issue`, the `description` field must follow this shape (drop
 1. **Extract** everything you can from the teammate's input (screenshot OCR, text, attached console logs).
 2. **Identify gaps** in the schema. Prioritize asking for: Version Affected → Steps (if Bug) → Priority → Assignee. Don't ask for things you can confidently infer.
 3. **Ask conversationally**, one or two questions per turn. Acknowledge each answer before the next question.
-4. **File** via `mcp__linear__save_issue` with team = "Future Of Sports", proper labels, priority, assignee, and the description template filled in.
+4. **File** via the Linear MCP's `save_issue` tool with team = "Future Of Sports", proper labels, priority, assignee, and the description template filled in. If the Linear MCP is not yet authenticated (the call returns an auth error), call its `authenticate` tool first — Claude Code will guide the teammate through Linear OAuth in their browser — then retry.
 5. **Confirm** to the teammate: *"filed as FUT-XXX → <url>"*. If you guessed at priority or type, flag it: *"marked it P1 since you mentioned a workaround — let me know if it's actually P0"*.
 
 ## When NOT to trigger

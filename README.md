@@ -1,105 +1,192 @@
 # FSPRadar 🛰️
 
-Future Of Sports product radar — when something is broken, weird, or missing, paste a screenshot or vent at Claude and it files a properly-formatted Linear ticket for you. No schema to learn, no fields to remember.
-
-There are two ways to use FSPRadar depending on what kind of teammate you are.
+**Future Of Sports product radar.** When something is broken, weird, or missing in our product — paste a screenshot or just describe it to Claude. FSPRadar files a properly-formatted Linear ticket for you. No fields to remember, no schema to learn.
 
 ---
 
-## 🟢 For everyone (non-technical) — claude.ai
+## Pick your install path
 
-**You don't need a terminal. You don't need GitHub. You don't need to install anything.**
-
-### One-time setup (done by your admin — see "Admin setup" below)
-
-After your admin has done the setup, you'll see a Project in your claude.ai sidebar called **"FSPRadar — File a bug"**.
-
-### How to file a bug (every time)
-
-1. Open Claude on the web → **https://claude.ai**  *(or the Claude desktop app)*
-2. In the left sidebar, click the project **"FSPRadar — File a bug"**
-3. Drag in a screenshot, OR just type / paste what's wrong. Anything works:
-   - *"the dashboard tile keeps flickering on iPad"*
-   - *"login button doesn't do anything on safari"*
-   - *"we should let users export their schedule to ical"*
-4. Claude will read your input, then ask you 1–2 friendly questions for anything it's missing (usually just the app version). Answer in plain English.
-5. When it has enough, Claude files the ticket in Linear and replies with the link. You're done.
-
-> **First time only:** Claude will ask you to log in to Linear via a popup. Click "Authorize" and you're set forever after.
-
-### Things to know
-
-- **Mobile (iOS/Android Claude app):** Connector support is still in beta as of April 2026 — use the **web or desktop app** for reliable filing. Mobile may work but isn't guaranteed yet.
-- **You don't need to know the priority scale or fields** — Claude knows. If you forget something important, it'll ask warmly.
-- **You can correct Claude.** If it guesses wrong (e.g. marks something P1 when it's P0), just say so and it'll update the ticket.
+| You use… | Go to |
+|---|---|
+| 💻 **Claude Code** (terminal CLI) | [Path A — Claude Code](#path-a--claude-code-90-seconds) |
+| 🌐 **Claude on the web or desktop app** (claude.ai) | [Path B — claude.ai](#path-b--claudeai-non-technical) |
+| 📱 **Claude on iPhone/Android only** | [Path C — Mobile](#path-c--mobile) |
 
 ---
 
-## 🛠️ For developers — Claude Code
+## Path A — Claude Code (90 seconds)
 
-If you live in a terminal and use Claude Code, install the plugin instead. It's the same brain, just inside your dev environment.
+> **You'll need:** Claude Code already installed and working.
 
-In any Claude Code session, run:
+### Step 1 — Add the FSPRadar marketplace
+
+In any Claude Code session, type:
 
 ```
 /plugin marketplace add FutureOfSports/FSPRadar
+```
+
+You should see:
+
+```
+✓ Successfully added marketplace: FSPRadar
+```
+
+### Step 2 — Install the FSPRadar plugin
+
+```
 /plugin install FSPRadar@FSPRadar
 ```
 
-That's it. The Linear MCP is bundled — first Linear action will prompt you to authorize.
+You should see:
 
-When something's broken, just say so or paste a screenshot. The skill auto-triggers; no magic phrase needed.
+```
+✓ Installed FSPRadar. Run /reload-plugins to apply.
+```
 
----
+### Step 3 — Reload plugins
 
-## 🔧 Admin setup (one-time, ~5 minutes)
+```
+/reload-plugins
+```
 
-> **Who does this:** the workspace owner (Praful). Once. Done forever.
->
-> **Plan requirement:** Claude **Team plan** (min 5 seats). Required for shared Projects + custom MCP connectors. If your team is on individual Pro plans, each teammate has to do these steps themselves.
+You should see something like:
 
-### Step 1 — Add Linear as a custom connector (workspace-level)
+```
+Reloaded: 4 plugins · 1 plugin MCP server · ...
+```
 
-1. Go to **https://claude.ai** and sign in as the workspace owner.
-2. Click your avatar (bottom left) → **Settings**.
-3. In the left settings menu, click **Connectors**.
-4. Click **Add custom connector** (or "Add MCP server").
-5. Fill in:
-   - **Name:** `Linear`
-   - **URL:** `https://mcp.linear.app/mcp`
-   - **Auth:** OAuth (Claude will handle the flow)
-6. Click **Save** / **Connect**. Authorize the Linear OAuth popup with the Future Of Sports workspace.
-7. (If your plan allows) toggle **Share with workspace** so teammates inherit the connector.
+### Step 4 — Try it
 
-### Step 2 — Create the shared Project
+Just type something. **No magic phrase required.**
 
-1. In claude.ai, click **+ New Project** (left sidebar).
-2. **Name:** `FSPRadar — File a bug`
-3. **Description:** *"Drag in a screenshot or describe what's wrong. I'll file it as a Linear ticket."*
-4. Open the project, click **Set up custom instructions** (or "Edit project instructions").
-5. Paste the entire **System prompt** from the section below.
-6. In the project, enable the **Linear** connector (toggle it on for this project).
-7. Save. The Project will auto-appear in every Team workspace member's sidebar.
+```
+the dashboard tile keeps flickering on iPad pro
+```
 
-### Step 3 — Tell the team
+Claude will recognize the bug-filing intent, ask you 1–2 friendly questions for anything missing (usually the app version), then file the Linear ticket and reply with the URL.
 
-Send this in Slack/email:
-
-> 👋 New: open Claude (https://claude.ai) and look for the **"FSPRadar — File a bug"** project in your sidebar.
->
-> Next time something is broken, weird, or missing in our product — open that project, drag in a screenshot or describe what's wrong, and Claude will file a Linear ticket for you. Answer its questions in plain English. That's it.
-
-### Step 4 — Updates later
-
-When the schema or trigger logic changes:
-1. Edit `plugins/FSPRadar/skills/file-bug/SKILL.md` in this repo (it's also the source of the System prompt below).
-2. `git commit && git push`.
-3. Re-paste the updated System prompt into the claude.ai Project's custom instructions.
-4. Developers using Claude Code run `/plugin update FSPRadar`.
+> **First Linear call** in a fresh session will trigger an OAuth popup — authorize Linear with the **Future Of Sports** workspace. One time only.
 
 ---
 
-## 📋 System prompt (paste this into the claude.ai Project's custom instructions)
+## Path B — claude.ai (non-technical)
+
+**You don't need a terminal. You don't need GitHub. You don't need to install anything.**
+
+### What you'll do (every time, ~30 seconds)
+
+1. Open **https://claude.ai** (web or the desktop app).
+2. In the left sidebar, click the project **"FSPRadar — File a bug"**.
+3. Drag in a screenshot, paste a Slack complaint, or just type what's wrong:
+   - *"the dashboard tile keeps flickering on iPad"*
+   - *"login button doesn't do anything on safari"*
+   - *"we should let users export their schedule to ical"*
+4. Claude will ask 1–2 friendly questions (usually just app version). Answer in plain English.
+5. Claude files the Linear ticket and gives you the URL. Done.
+
+> **First time only:** Claude will pop up a Linear sign-in. Click "Authorize" — that's it forever.
+
+### What your admin had to do once (you don't need to read this)
+
+<details>
+<summary>Click to expand — admin one-time setup, ~5 minutes</summary>
+
+> **Plan requirement:** Claude **Team plan** (min 5 seats). Required for shared Projects + custom MCP connectors. Pro users can do these steps individually but Projects won't auto-share.
+
+#### 1. Add Linear as a custom MCP connector
+
+1. Go to **https://claude.ai** as the workspace owner.
+2. Click your avatar (bottom left) → **Settings** → **Connectors**.
+3. Click **Add custom connector** (or "Add MCP server").
+4. Name: `Linear` · URL: `https://mcp.linear.app/mcp` · Auth: OAuth.
+5. Save. Authorize the Linear OAuth popup with Future Of Sports.
+6. Toggle **Share with workspace** if available.
+
+#### 2. Create the shared Project
+
+1. Click **+ New Project** in the left sidebar.
+2. Name: `FSPRadar — File a bug`
+3. Description: *"Drag in a screenshot or describe what's wrong. I'll file it as a Linear ticket."*
+4. Open the project → **Set up custom instructions** (or "Edit project instructions").
+5. Paste the [System prompt](#system-prompt-for-claudeai-project) (below).
+6. Enable the **Linear** connector for the project.
+7. Save. The Project auto-shares with every Team workspace member.
+
+#### 3. Tell the team
+
+Send in Slack/email:
+
+> 👋 New: open Claude (https://claude.ai) and look for **"FSPRadar — File a bug"** in your sidebar. When something's broken — open the project, drag in a screenshot or describe it, answer Claude's questions, done.
+
+</details>
+
+---
+
+## Path C — Mobile
+
+⚠️ Custom MCP connectors on the Claude iOS / Android apps are in **beta as of April 2026** and not reliable for filing.
+
+**Recommendation:** use **web** (https://claude.ai in your phone's browser) instead — it works the same as desktop and the Linear connector is stable there.
+
+If you want to try the native app anyway: open the **"FSPRadar — File a bug"** project in the Claude app, attach a screenshot, describe the issue. If filing fails, fall back to claude.ai in your browser.
+
+---
+
+## Examples — what a real interaction looks like
+
+### Example 1 — Quick bug
+
+> **You:** *"the live score widget keeps showing yesterday's game on the home tab"*
+>
+> **Claude:** got it — quick one, what version of the app are you on? build number is fine if you have it.
+>
+> **You:** *"web build #1842"*
+>
+> **Claude:** thanks. one more — does it fix itself on hard refresh, or stay stuck?
+>
+> **You:** *"stays stuck"*
+>
+> **Claude:** filed as **FUT-261 → linear.app/...** — marked it P1 since the home tab is core flow but a hard refresh isn't a workaround. let me know if you want it bumped to P0.
+
+### Example 2 — Screenshot dump
+
+> **You:** *[drag in screenshot of a layout glitch]* "this on android"
+>
+> **Claude:** thanks — looks like the schedule cards are overlapping on Android. quick one, what version / device are you on?
+>
+> **You:** *"pixel 8, app version 2.4.1"*
+>
+> **Claude:** filed as **FUT-262 → linear.app/...** — marked Bug, P2, assigned to anand. screenshot referenced in the description. tell me if anand isn't right.
+
+### Example 3 — Feature wish
+
+> **You:** *"i wish we could export the season schedule to google calendar"*
+>
+> **Claude:** noted as a feature request. who should own scoping this — anand or tabitha?
+>
+> **You:** *"tabitha"*
+>
+> **Claude:** filed as **FUT-263 → linear.app/...** — labeled "New Feature", P3, assigned to tabitha.
+
+---
+
+## When it doesn't work
+
+| Symptom | Fix |
+|---|---|
+| **`/plugin install` says "marketplace not found"** | You skipped Step 1. Run `/plugin marketplace add FutureOfSports/FSPRadar` first. |
+| **Skill doesn't trigger when I describe a bug** | Run `/reload-plugins` and try again. If still nothing, check `/plugins` → Installed → confirm FSPRadar is listed. |
+| **Linear filing fails with auth error** | The Linear MCP needs OAuth. Just say to Claude: *"authenticate Linear"* — it'll trigger the OAuth popup. Authorize Future Of Sports workspace and retry. |
+| **claude.ai shows "Add connector" not available** | Your account isn't on Pro or Team plan. Custom MCP connectors require Pro minimum; shared Projects require Team. |
+| **claude.ai shared Project not in my sidebar** | Ask your workspace owner to confirm the Project was created under the Team workspace (not personal). It auto-shares once it's there. |
+| **Tool name confusion** (e.g. *"which `save_issue` should I use?"*) | The skill is tool-name-agnostic from v1.0.1+ — Claude picks whichever Linear MCP is loaded. If you're on v1.0.0, run `/plugin update FSPRadar`. |
+
+---
+
+## System prompt (for claude.ai Project)
+
+> Paste this into the **Custom Instructions** of the `FSPRadar — File a bug` Project on claude.ai. Replace it whenever the SKILL.md in this repo changes.
 
 ```
 You are the FSPRadar bug-filing agent for the Future Of Sports team. Your job is to turn whatever the teammate dumps at you (screenshot, vent, half-sentence, Slack paste) into a properly-formed Linear issue without making them think.
@@ -127,14 +214,12 @@ Before calling the Linear MCP to create the issue, you must have all of these:
 - Expected vs Actual (Bug only) — extract or ask.
 - Screenshots / Logs — note attachment or paste log lines.
 
-## Priority scale (team convention — memorize)
+## Priority scale (team convention)
 
 - P0 → Linear Urgent — show-stopper, core flow broken, NO workaround.
 - P1 → Linear High — show-stopper but a workaround exists.
 - P2 → Linear Normal — trivial but visible to ~20% of audience.
 - P3 → Linear Low — minor / cosmetic / edge case.
-
-If the user says "P0/P1/P2/P3", map directly. Otherwise infer from impact.
 
 ## Type definitions
 
@@ -149,11 +234,10 @@ When fields are missing, ask in plain English. Acknowledge what they gave you fi
 - "got it — quick one, what version of the app were you on? build number or commit sha is fine"
 - "thanks, that's enough to file. who should own this — praful, anand, or tabitha?"
 - "want me to mark this P0 (totally broken, no workaround) or P1 (broken but you can work around it)?"
-- "can you walk me through what you tapped right before it broke? rough is fine"
 
 NEVER say things like "please provide: version, priority, assignee, steps..." That's the failure mode.
 
-## Description template (use as the Linear issue description; drop bug-only sections for Feature Feedback / New Feature)
+## Description template (use as the Linear issue description)
 
 ## Version Affected
 <value>
@@ -179,26 +263,48 @@ NEVER say things like "please provide: version, priority, assignee, steps..." Th
 ## Screenshots / Logs / Links
 - <urls, log lines, or note that a screenshot was attached>
 
+(Drop the bug-only sections for Feature Feedback / New Feature.)
+
 ## Workflow
 
 1. Extract everything you can from the teammate's input (screenshot OCR, text, attached console logs).
-2. Identify gaps in the schema. Prioritize asking for: Version Affected → Steps (if Bug) → Priority → Assignee. Don't ask for things you can confidently infer.
+2. Identify gaps. Prioritize asking for: Version Affected → Steps (if Bug) → Priority → Assignee.
 3. Ask conversationally, one or two questions per turn. Acknowledge each answer before the next question.
 4. File via the Linear MCP with team = "Future Of Sports", proper labels, priority, assignee, and the description template filled in.
-5. Confirm to the teammate: "filed as FUT-XXX → <url>". If you guessed at priority or type, flag it: "marked it P1 since you mentioned a workaround — let me know if it's actually P0".
+5. Confirm: "filed as FUT-XXX → <url>". Flag anything you guessed.
 
 ## When NOT to file
 
 - The teammate is debugging code in this conversation and wants help fixing it, not filing it. If unclear, ask: "want me to file this in Linear or are we debugging it now?"
 - The teammate explicitly says they don't want to file it.
-- The complaint isn't about the Future Of Sports product (e.g. they're venting about a third-party tool).
+- The complaint isn't about the Future Of Sports product.
 ```
 
 ---
 
-## 📚 Reference
+## Reference — what the schema looks like
 
-- **Priority scale:** P0 = Urgent, no workaround · P1 = High, has workaround · P2 = Normal, ~20% visible · P3 = Low, cosmetic
-- **Types:** Bug · Feature Feedback · New Feature
-- **Linear team:** Future Of Sports
-- **Maintainer:** Praful (praful@futureofsports.io)
+| Field | Possible values |
+|---|---|
+| **Type** | `Bug` · `Feature Feedback` · `New Feature` |
+| **Priority** | `P0` Urgent (no workaround) · `P1` High (has workaround) · `P2` Normal (~20% visible) · `P3` Low (cosmetic) |
+| **Linear team** | Future Of Sports |
+| **Common assignees** | praful, anand, tabitha |
+
+---
+
+## For maintainers (you, Praful)
+
+### To ship an update to the skill
+
+1. Edit `plugins/FSPRadar/skills/file-bug/SKILL.md`.
+2. Bump `version` in `plugins/FSPRadar/.claude-plugin/plugin.json`.
+3. `git commit && git push`.
+4. Re-paste the **System prompt** (above) into the claude.ai Project's custom instructions.
+5. Tell developers using Claude Code to run `/plugin update FSPRadar` then `/reload-plugins`.
+
+### Repo
+
+- Local source of truth: `/Users/prafulrana/oneshot/FSPRadar/`
+- Remote: https://github.com/FutureOfSports/FSPRadar
+- Maintainer: Praful (praful@futureofsports.io)
